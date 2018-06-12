@@ -23,11 +23,10 @@ class DataController{
      * Date request are forwarded here to special operator
      */
     public function data($table,$type){
-        $request = Request::createFromGlobals();
         $text="";
         switch ($table){
             case "notepad":
-               $text=notepadData::makeRequest($type,$request);
+               $text=notepadData::makeRequest($type);
                 break;
             case "todolist":
                 break;
@@ -36,17 +35,7 @@ class DataController{
             default:
                 break;
         }
-        return new Response("<meta charset='UTF-8'>".$text);
-
-    }
-
-
-
-
-    public function dataNotepadGet(){
-
-
-
+        return new Response($text);
     }
 
 }

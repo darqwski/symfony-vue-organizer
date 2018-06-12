@@ -19,12 +19,11 @@ class notepadData extends PDOController {
      * -limit
      * if each of this are unset, nothing happened
      */
-    public static function getRequest($request){
+    public static function getRequest(){
 
         $command="SELECT * FROM `neezer_notes`";
-
         if(isset($_GET['id'])){
-            $command.=" WHERE `id`=$_GET[id]";
+            $command.=" WHERE `ID`=$_GET[id]";
         }
 
         else if(isset($_GET['notepad'])){
@@ -45,23 +44,46 @@ class notepadData extends PDOController {
             $command.=" LIMIT $_GET[limit],10";
         }
 
-       return PDOController::convJSON(PDOController::getCommand($command));
+        $data=PDOController::getCommand($command);
+        $tableID=$data[0]['notepad'];
+        $tableName=PDOController::getCommand("SELECT `Name` FROM `neezer_notepads` WHERE `ID`=$tableID");
+
+        $data[0]['notepad']=$tableName[0]['Name'];
+
+
+       return PDOController::convJSON($data);
 
     }
-    private function deleteRequest($tableName,$request){
+    private function deleteRequest(){
+        $command="DELETE FROM `neezer_notes`";
+        if(isset($_GET['id'])){
+            $command.=" WHERE `ID`=$_GET[id]";
+          $number= PDOController::convJSON(PDOController::getCommand($command));
+            if($number=="1")return "DELETE RECORD";
+            if($number==0)return "RECORD WAS NOT DELETED";
+            return "$number RECORDS WERE DELETED";
+        }
+
+        else return "NO ID WAS SELECTED";
 
     }
-    private function addRequest($tableName,$request){
+    private function addRequest(){
 
     }
     private function updateRequest($tableName,$request){
 
     }
-    public static function makeRequest($type,$request){
+    public static function makeRequest($type){
         switch ($type){
             case "get":
-                return self::getRequest($request);
-                break;
+                return self::getRequest();
+            case "delete":
+                return self::deleteRequest();
+            case "add":
+                return self::addRequest();
+            case "update":
+                return self::updateRequest();
+
         }
     }
 }
