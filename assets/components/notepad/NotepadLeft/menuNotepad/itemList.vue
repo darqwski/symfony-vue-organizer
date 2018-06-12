@@ -1,9 +1,9 @@
 <template>
     <li class="collection-item avatar">
-        <img v-bind:src="notepad.img" alt="" class="circle">
+        <img v-bind:src="notepad.img" alt=""  v-bind:class="notepad.color">
         <span class="title">{{notepad.title}}</span>
-        <p>Maybe Date off creation?<br>
-         {{notepad.img}}
+        <p>Ostatnio edytowany : {{notepad.modificationDate}}<br>
+
         </p>
     </li>
 </template>
@@ -11,8 +11,11 @@
 <script>
     export default {
         name: "itemList",
-        props: ['notepad']
+        props: ['notepad'],
+        data(){return {}}
+
     }
+
 </script>
 
 <style scoped>

@@ -48,6 +48,8 @@ class PDOController
 
             $text.="{";
             foreach ($data[$i] as $key => $value){
+                str_replace("
+                ","</br>",$value);
                 $text.='"'.$key.'":"'.$value.'",';
             }
             $text=substr($text,0,strlen($text)-1);

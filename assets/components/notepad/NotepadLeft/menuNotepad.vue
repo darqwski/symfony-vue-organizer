@@ -15,9 +15,7 @@
         name: "menuNotepad",
 
         data () {
-            return {notepads: [
-                    {title:"JEDEN",id:1}
-            ]}
+            return {notepads: []}
         },
         components: {itemList},
         computed:{
@@ -28,7 +26,13 @@
                     .then(resp => {
 
                         for(var i=0;i<resp.length;i++){
-                            self.notepads.push({title:resp[i].Name,img:resp[i].img})
+                            self.notepads.push({
+                                title:resp[i].Name,
+                                img:resp[i].img,
+                                creationDate:resp[i].creationDate,
+                                modificationDate:resp[i].modificationDate,
+                                color:resp[i].color+" circle"
+                            })
                         }
                     })
             }
