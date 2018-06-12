@@ -17,7 +17,7 @@ class notepadController extends Controller {
      * @Route("/notepad")
      */
     public function index(){
-        return  $this->render('notepad.html.twig',['name'=>'Notepad']);
+        return  $this->render('typicalPage.html.twig',['name'=>'Notepad','appName'=>'notepadApp']);
     }
 
 }

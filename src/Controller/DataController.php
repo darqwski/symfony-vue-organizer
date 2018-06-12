@@ -9,9 +9,8 @@
 namespace App\Controller;
 
 use App\Entity\notepadData;
-use function MongoDB\BSON\toJSON;
+use App\Entity\notepadsData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 use PDO;
@@ -26,7 +25,10 @@ class DataController{
         $text="";
         switch ($table){
             case "notepad":
-               $text=notepadData::makeRequest($type);
+                $text=notepadData::makeRequest($type);
+                break;
+            case "notepads":
+                $text=notepadsData::makeRequest($type);
                 break;
             case "todolist":
                 break;

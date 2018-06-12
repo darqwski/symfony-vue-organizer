@@ -43,8 +43,9 @@ class PDOController
      * Because json_encode doesn't work
      * */
     public static function convJSON($data){
-        $text="";
+        $text="[";
         for($i=0;$i<count($data);$i++){
+
             $text.="{";
             foreach ($data[$i] as $key => $value){
                 $text.='"'.$key.'":"'.$value.'",';
@@ -53,6 +54,7 @@ class PDOController
             $text.="},";
         }
         $text=substr($text,0,strlen($text)-1);
+        $text.="]";
         return $text;
     }
 }

@@ -8,7 +8,7 @@
 
 namespace App\Entity;
 
-class notepadData extends PDOController {
+class notepadData extends DataFormat {
     private static $tableName="neezer_notes";
 
     /**
@@ -54,7 +54,7 @@ class notepadData extends PDOController {
        return PDOController::convJSON($data);
 
     }
-    private function deleteRequest(){
+    public static function deleteRequest(){
         $command="DELETE FROM `neezer_notes`";
         if(isset($_GET['id'])){
             $command.=" WHERE `ID`=$_GET[id]";
@@ -67,10 +67,10 @@ class notepadData extends PDOController {
         else return "NO ID WAS SELECTED";
 
     }
-    private function addRequest(){
+    public static function addRequest(){
 
     }
-    private function updateRequest($tableName,$request){
+    public static function updateRequest(){
 
     }
     public static function makeRequest($type){
@@ -86,4 +86,5 @@ class notepadData extends PDOController {
 
         }
     }
+
 }
