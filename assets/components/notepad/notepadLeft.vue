@@ -1,14 +1,17 @@
 <template>
     <div>
-        TO JEST LEWA STRONA
+<menuNotepad></menuNotepad>
     </div>
 
 </template>
 
 <script>
+    import menuNotepad from './NotepadLeft/menuNotepad'
     export default {
-        name: "notepadLeft"
+        name: "NotepadLeft",
+        components:{menuNotepad}
     }
+
 </script>
 
 <style scoped>

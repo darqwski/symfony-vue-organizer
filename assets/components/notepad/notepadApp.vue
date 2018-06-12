@@ -7,8 +7,8 @@
 </template>
 
 <script>
-    import notepadLeft from "./notepadLeft";
     import notepadRight from "./notepadRight";
+    import notepadLeft from "./notepadLeft";
 
 export default {
         name: "notepadApp",
