@@ -13,7 +13,9 @@ new Vue({
             type:"notesList",
             notepadID:"1",
             noteID:"1",
-            noteTitle:""
+            noteTitle:"",
+            notepadFirstColor:"",
+            notepadSecondColor:"white-text light-green lighten-1"
         }
     }
 })

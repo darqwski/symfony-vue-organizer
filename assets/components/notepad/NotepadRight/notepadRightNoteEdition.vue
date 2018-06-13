@@ -1,8 +1,5 @@
 <template>
-    <textarea id="notepadTextEdition">
-        {{note.text}}
-    {{getEditNote}}
-    </textarea>
+    <textarea id="notepadTextEdition">{{note.text}}{{getEditNote}}</textarea>
 
 </template>
 
@@ -23,7 +20,7 @@
                             self.note={
                                 title:resp[0].title,
                                 firstLine:resp[0].firstLine,
-                                text:resp[0].text,
+                                text:this.translateText(resp[0].text),
                                 date:resp[0].date,
                                 notepad:resp[0].notepad
                             }
@@ -32,6 +29,12 @@
                     })
             }
         },
+        methods:{
+        translateText(text){
+            while(text!=text.replace('<br \/>','\r\n'))text=text.replace('<br \/>','\r\n');
+            return text;
+        }
+        }
     }
 </script>
 
@@ -41,6 +44,7 @@ textarea{
     max-width: 100%;
     height: 100%;
     width: 100%;
+    background-color: white;
 overflow:auto;
 }
 </style>

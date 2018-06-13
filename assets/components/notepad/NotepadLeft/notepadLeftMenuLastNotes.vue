@@ -1,5 +1,6 @@
 <template>
-    <ul class="collection">
+    <ul class="collection with-header z-depth-3">
+        <li :class="'collection-header '+this.$root.$data.notepadSecondColor"><h4>Last edited notes</h4></li>
         <MenuLastNotesItem
                 v-for="note in notes"
                 v-bind:key="note.id"
@@ -24,7 +25,6 @@
                 fetch('http://localhost:8080/data/notes/get?limit=0&number=3')
                     .then(resp => resp.json())
                     .then(resp => {
-
                         for(var i=0;i<resp.length;i++){
                             self.notes.push({
                                 title:resp[i].title,

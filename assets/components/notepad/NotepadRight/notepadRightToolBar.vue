@@ -1,13 +1,13 @@
 <template>
 
     <nav>
-
-        <div class="nav-wrapper light-green lighten-1" id="notepadToolBar" >
+        <div :class="'nav-wrapper '+this.$root.$data.notepadSecondColor" id="notepadToolBar" >
             <ul>
                 <li><i class="material-icons">arrow_back</i></li>
-                <li  v-if="this.$root.$data.type==='editNote' && this.$root.$data.noteID!='newNote'"  v-on:click="deleteFromServer()"> <i class="material-icons">remove</i></li>
+                <li  v-if="this.$root.$data.type==='editNote' && this.$root.$data.noteID!='newNote'"  v-on:click="deleteFromServer()"> <i class="material-icons">delete</i></li>
                 <li  v-if="this.$root.$data.type==='editNote'"  v-on:click="sendDataToServer()"> <i class="material-icons">save</i></li>
-                <li  v-else  v-on:click="changeOnNewNoteView()"> <i class="material-icons">add</i></li>
+                <li  v-else  v-on:click="changeOnNewNoteView()"> <i class="material-icons">note_add</i></li>
+                <li   v-if="this.$root.$data.type!='editNote'"  v-on:click="sendDataToServer()"> <i class="material-icons">create_new_folder</i></li>
             </ul>
            <input v-if="this.$root.$data.type==='editNote'" :value="this.$root.$data.noteTitle" id="noteTitle"/>
             <ul v-if="this.$root.$data.type==='editNote'">
@@ -15,7 +15,6 @@
                 <li><i class="material-icons">format_italic</i></li>
                 <li><i class="material-icons">format_bold</i></li>
                 <li><i class="material-icons">format_color_text</i></li>
-                <li><i class="material-icons">delete</i></li>
             </ul>
         </div>
     </nav>
@@ -42,8 +41,9 @@
                        else
                             link+="/update";
                 const formData = new FormData();
+                var text=this.validateText(document.getElementById("notepadTextEdition").value);
                         formData.append('title', document.getElementById("noteTitle").value);
-                        formData.append('text', document.getElementById("notepadTextEdition").value);
+                        formData.append('text', text);
                         formData.append('notepad',this.$root.$data.notepadID);/*NEED TO CHANGE*/
                         formData.append('ID',this.$root.$data.noteID)
                 console.log(link)
@@ -70,6 +70,10 @@
                         console.log(text)
                     });
                 })
+            },
+            validateText(text){
+                text=text.replace(/\r\n/g, '<br />').replace(/[\r\n]/g, '<br />');
+                return text;
             }
         }
     }
@@ -79,10 +83,11 @@
     $marginLi:7px;
 
     #noteTitle{
+        color:white;
 }
     .nav-wrapper{
     display: grid;
-    grid-template-columns: 2fr 6fr 4fr;
+    grid-template-columns: 3fr 6fr 4fr;
 
 }
     ul{

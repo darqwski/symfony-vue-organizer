@@ -1,5 +1,6 @@
 <template>
-    <ul class="collection">
+    <ul class="collection with-header z-depth-3">
+        <li :class="'collection-header '+this.$root.$data.notepadSecondColor"><h4>Your Notepads</h4></li>
         <MenuNotepadsItem
                 v-for="notepad in notepads"
                 v-bind:key="notepad.id"

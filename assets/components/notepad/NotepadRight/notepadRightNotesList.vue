@@ -1,6 +1,6 @@
 <template>
 
-        <ul class="collection">
+        <ul class="collection z-depth-3">
             <MenuNotesItem
                     v-for="note in notes"
                     v-bind:key="note.id"
@@ -32,7 +32,8 @@
                                 firstLine:resp[i].firstLine,
                                 text:resp[i].text,
                                 date:resp[i].date,
-                                notepad:resp[i].notepad
+                                notepad:resp[i].notepad,
+                                ID:resp[i].ID
                             })
                         }
 
