@@ -6,7 +6,7 @@
             <ul>
                 <li><i class="material-icons">arrow_back</i></li>
                 <li  v-if="this.$root.$data.type==='editNote'"> <i class="material-icons">save</i></li>
-                <li  v-else> <i class="material-icons" v-on:click="">add</i></li>
+                <li  v-else> <i class="material-icons" v-on:click="changeOnNewNoteView()">add</i></li>
             </ul>
            <input v-if="this.$root.$data.type==='editNote'" :value="this.$root.$data.noteTitle" id="noteTitle"/>
             <ul v-if="this.$root.$data.type==='editNote'">
