@@ -41,7 +41,9 @@ class notepadData extends DataFormat {
             }
         }
         if(isset($_GET['limit'])){
-            $command.=" LIMIT $_GET[limit],10";
+            $number=10;
+            if(isset($_GET['number']))$number=$_GET['number'];
+            $command.=" LIMIT $_GET[limit],$number";
         }
 
         $data=PDOController::getCommand($command);

@@ -24,7 +24,7 @@ class DataController{
     public function data($table,$type){
         $text="";
         switch ($table){
-            case "notepad":
+            case "notes":
                 $text=notepadData::makeRequest($type);
                 break;
             case "notepads":
