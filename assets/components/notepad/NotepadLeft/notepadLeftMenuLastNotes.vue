@@ -1,27 +1,27 @@
 <template>
     <ul class="collection">
-        <notesList
+        <MenuLastNotesItem
                 v-for="note in notes"
                 v-bind:key="note.id"
                 v-bind:note="note"
-        ></notesList>
+        ></MenuLastNotesItem>
         {{getNotes}}
     </ul>
 
 </template>
 
 <script>
-    import notesList from './notesList'
+    import MenuLastNotesItem from './notepadLeftMenuLastNotesItem'
     export default {
         name: "lastNotes",
         data () {
             return {notes: []}
         },
-        components: {notesList},
+        components: {MenuLastNotesItem},
         computed:{
             getNotes:function () {
                 let self = this;
-                fetch('http://localhost:8080/data/notepad/get?limit=0')
+                fetch('http://localhost:8080/data/notes/get?limit=0&number=3')
                     .then(resp => resp.json())
                     .then(resp => {
 
@@ -31,7 +31,8 @@
                                 firstLine:resp[i].firstLine,
                                 text:resp[i].text,
                                 date:resp[i].date,
-                                notepad:resp[i].notepad
+                                notepad:resp[i].notepad,
+                                ID:resp[i].ID
                             })
                         }
 

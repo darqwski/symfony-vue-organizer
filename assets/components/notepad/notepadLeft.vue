@@ -1,21 +1,25 @@
 <template>
-    <div>
-        <menuNotepad></menuNotepad>
-       <lastNotes></lastNotes>
+    <div class="main-left-container">
+        <MenuNotepads></MenuNotepads>
+       <MenuLastNotes></MenuLastNotes>
     </div>
 
 </template>
 
 <script>
-    import menuNotepad from './NotepadLeft/menuNotepad'
-    import lastNotes from './NotepadLeft/lastNotes'
+    import MenuNotepads from './NotepadLeft/notepadLeftMenuNotepads'
+    import MenuLastNotes from './NotepadLeft/notepadLeftMenuLastNotes'
     export default {
         name: "NotepadLeft",
-        components:{menuNotepad,lastNotes}
+        components:{MenuNotepads,MenuLastNotes}
     }
 
 </script>
 
-<style scoped>
-
+<style>
+    .main-left-container{
+        height: 100%;
+        max-height: 100%;
+        overflow: auto;
+    }
 </style>

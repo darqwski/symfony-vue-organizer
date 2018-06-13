@@ -1,23 +1,23 @@
 <template>
     <ul class="collection">
-        <itemList
+        <MenuNotepadsItem
                 v-for="notepad in notepads"
                 v-bind:key="notepad.id"
                 v-bind:notepad="notepad"
-        ></itemList>
+        ></MenuNotepadsItem>
     {{getNotepads}}
     </ul>
 </template>
 
 <script>
-    import itemList from "./menuNotepad/itemList";
+    import MenuNotepadsItem from "./notepadLeftMenuNotepadsItem";
     export default {
         name: "menuNotepad",
 
         data () {
             return {notepads: []}
         },
-        components: {itemList},
+        components: {MenuNotepadsItem},
         computed:{
             getNotepads:function () {
                 let self = this;
@@ -31,7 +31,8 @@
                                 img:resp[i].img,
                                 creationDate:resp[i].creationDate,
                                 modificationDate:resp[i].modificationDate,
-                                color:resp[i].color+" circle"
+                                color:resp[i].color+" circle",
+                                ID:resp[i].ID
                             })
                         }
                     })

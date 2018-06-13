@@ -7,7 +7,7 @@ Encore
     // the public path used by the web server to access the previous directory
     .setPublicPath('/build')
     .cleanupOutputBeforeBuild()
-    .enableSourceMaps(!Encore.isProduction())
+ //   .enableSourceMaps(!Encore.isProduction())
     .addPlugin(new VueLoaderPlugin())
     .enableVueLoader()
     .enableSassLoader()

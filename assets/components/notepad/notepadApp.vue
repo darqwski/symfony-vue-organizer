@@ -12,10 +12,21 @@
 
 export default {
         name: "notepadApp",
-    components: {notepadLeft,notepadRight}
+    /*
+    notepadRight
+        if v-bind:type="noteEdition" then note textAreatEdition
+            else notes list
+     */
+
+    components: {notepadLeft,notepadRight},
+    methods: {
+
+    }
 }
 </script>
 
 <style>
-
+.main-grid-container{
+    height: 100%;
+}
 </style>
