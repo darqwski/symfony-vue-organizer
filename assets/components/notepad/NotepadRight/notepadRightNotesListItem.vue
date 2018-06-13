@@ -1,9 +1,9 @@
 <template>
     <li class="collection-item">
         <span class="title">{{note.title}}</span>
-        <p>{{note.firstLine}}</p>
+        <p>{{note.firstLine}}
         <br>
-        <p href="#!" class="secondary-content">Ostatnio edytowany : {{note.date}}</p>
+         {{note.date}}</p>
     </li>
 </template>
 

@@ -1,9 +1,9 @@
 <template>
     <li class="collection-item" v-on:click="changeOnEditNote(note.ID)">
         <span class="title" >{{note.title}}</span>
-        <p>{{note.firstLine}}</p>
-        <br>
-        <p href="#!" class="secondary-content">Ostatnio edytowany : {{note.date}}</p>
+        <p>{{note.firstLine}}
+            <br>
+            {{note.date}}</p>
     </li>
 </template>
 

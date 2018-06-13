@@ -44,6 +44,9 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+ul{
+    max-height: 760px;
+    overflow: auto;
+}
 </style>

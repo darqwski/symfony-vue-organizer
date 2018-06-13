@@ -1,5 +1,5 @@
 <template>
-    <textarea>
+    <textarea id="notepadTextEdition">
         {{note.text}}
     {{getEditNote}}
     </textarea>
