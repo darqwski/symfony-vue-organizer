@@ -27,8 +27,10 @@ class notepadsData extends DataFormat {
     }
     public static function addRequest(){
 
+
     }
     public static function updateRequest(){
+
 
     }
     public static function makeRequest($type){

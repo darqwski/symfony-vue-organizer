@@ -40,6 +40,8 @@ class notepadData extends DataFormat {
                     break;
             }
         }
+        else
+            $command.=" ORDER BY `date` DESC";
         if(isset($_GET['limit'])){
             $number=10;
             if(isset($_GET['number']))$number=$_GET['number'];
@@ -58,8 +60,8 @@ class notepadData extends DataFormat {
     }
     public static function deleteRequest(){
         $command="DELETE FROM `neezer_notes`";
-        if(isset($_GET['id'])){
-            $command.=" WHERE `ID`=$_GET[id]";
+        if(isset($_POST['id'])){
+            $command.=" WHERE `ID`=$_POST[id]";
           $number= PDOController::convJSON(PDOController::getCommand($command));
             if($number=="1")return "DELETE RECORD";
             if($number==0)return "RECORD WAS NOT DELETED";
@@ -71,9 +73,41 @@ class notepadData extends DataFormat {
     }
     public static function addRequest(){
 
+        $title=$_POST['title'];
+        $text=$_POST['text'];
+        $notepad=$_POST['notepad'];
+        $words=explode(" ",$_POST['text']);
+        $firstLine='';
+        for($i=0;($i<count($words)&&$i<5);$i++)
+            $firstLine.=$words[$i].' ';
+        $date=Date("Y-m-d H:i:s");
+        $command="INSERT INTO  `neezer_notes` (`title`,`text`,`firstLine`,`date`,`notepad`) VALUES ('$title','$text','$firstLine','$date','$notepad')";
+        $added=PDOController::putCommand($command);
+        $response=" ODPOWIEDZ Z SERWERA: ";
+        if($added==1)$response.=" DODODANE ".$command."<br>".
+            "INSERT INTO  `neezer_notepads` (`title`,`text`,`firstLine`,`date`,`notepad`) VALUES ('$title','$text','$firstLine','$date','$notepad')";
+        else $response.=" NIE DODANE I CHUJ"."<br>".
+        "INSERT INTO  `neezer_notepads` (`title`,`text`,`firstLine`,`date`,`notepad`) VALUES ('$title','$text','$firstLine','$date','$notepad')";
+
+        return $response;
     }
     public static function updateRequest(){
 
+        $title=$_POST['title'];
+        $text=$_POST['text'];
+        $ID=$_POST['ID'];
+        $notepad=$_POST['notepad'];
+        $words=explode(" ",$_POST['text']);
+        $firstLine='';
+        for($i=0;($i<count($words)&&$i<5);$i++)
+            $firstLine.=$words[$i].' ';
+        $date=Date("Y-m-d H:i:s");
+        $command="UPDATE `neezer_notes` 
+        SET `title`='".$title."',`text`='".$text."',`firstLine`='".$firstLine."' ,`date`='".$date."' ,`notepad`='".$notepad."' 
+        WHERE `ID`='$ID'";
+        $added=PDOController::putCommand($command);
+        $response=" ODPOWIEDZ Z SERWERA: $added ".$command;
+           return $response;
     }
     public static function makeRequest($type){
         switch ($type){
