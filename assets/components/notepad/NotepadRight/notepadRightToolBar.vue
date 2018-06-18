@@ -1,16 +1,16 @@
 <template>
 
     <nav>
-        <div :class="'nav-wrapper '+this.$root.$data.notepadSecondColor" id="notepadToolBar" >
+        <div :class="navDivClass" id="notepadToolBar" >
             <ul>
-                <li><i class="material-icons">arrow_back</i></li>
-                <li  v-if="this.$root.$data.type==='editNote' && this.$root.$data.noteID!='newNote'"  v-on:click="deleteFromServer()"> <i class="material-icons">delete</i></li>
-                <li  v-if="this.$root.$data.type==='editNote'"  v-on:click="sendDataToServer()"> <i class="material-icons">save</i></li>
+                <li><i class="material-icons" v-if="ifEditNote" v-on:click="backToNotepads">arrow_back</i></li>
+                <li  v-if="ifUpdateNote" v-on:click="deleteFromServer()"> <i class="material-icons">delete</i></li>
+                <li  v-if="ifEditNote" v-on:click="sendDataToServer()"> <i class="material-icons">save</i></li>
                 <li  v-else  v-on:click="changeOnNewNoteView()"> <i class="material-icons">note_add</i></li>
-                <li   v-if="this.$root.$data.type!='editNote'"  v-on:click="sendDataToServer()"> <i class="material-icons">create_new_folder</i></li>
+                <li   v-if="ifNotEdit"  v-on:click=""> <i class="material-icons">create_new_folder</i></li>
             </ul>
-           <input v-if="this.$root.$data.type==='editNote'" :value="this.$root.$data.noteTitle" id="noteTitle"/>
-            <ul v-if="this.$root.$data.type==='editNote'">
+           <input v-if="ifEditNote" :value="this.$root.$data.noteTitle" id="noteTitle"/>
+            <ul v-if="ifEditNote">
                 <li><i class="material-icons">format_underlined</i></li>
                 <li><i class="material-icons">format_italic</i></li>
                 <li><i class="material-icons">format_bold</i></li>
@@ -27,6 +27,20 @@
             return{
             }
         },
+        computed:{
+            ifUpdateNote(){
+                return this.$root.$data.type==='editNote' && this.$root.$data.noteID!='newNote'
+            },
+            ifEditNote(){
+                return this.$root.$data.type==='editNote'
+            },
+            ifNotEdit(){
+               return this.$root.$data.type!='editNote'
+            },
+            navDivClass(){
+                return 'nav-wrapper '+this.$root.$data.notepadSecondColor;
+            }
+        },
         methods:{
             changeOnNewNoteView(){
                 this.$root.$data.noteID="newNote"
@@ -36,12 +50,21 @@
             sendDataToServer(){
                     var link="http://localhost:8080/data/notes";
 
+
+                        var instance = M.Modal.getInstance(document.querySelector("#addNewNoteModal"));
+                        instance.open();
+                    console.log(instance.open())
                        if(this.$root.$data.noteID=="newNote")
                             link+="/add"
                        else
                             link+="/update";
                 const formData = new FormData();
                 var text=this.validateText(document.getElementById("notepadTextEdition").value);
+                var title=this.validateTitle(document.getElementById("noteTitle").value)
+                if(!(text&&title)){
+                    alert("Chujnia andrzeju!")
+                    return 0;
+                }
                         formData.append('title', document.getElementById("noteTitle").value);
                         formData.append('text', text);
                         formData.append('notepad',this.$root.$data.notepadID);/*NEED TO CHANGE*/
@@ -61,19 +84,29 @@
                 var link="http://localhost:8080/data/notes/delete";
                 const formData = new FormData();
                 formData.append('id',this.$root.$data.noteID)
-                console.log(link)
                 fetch(link,{
                     method:"POST",
                     body:formData
                 }) .then(function (resp) {
                     resp.text().then(function (text) {
-                        console.log(text)
+                        var instance = M.Modal.getInstance(document.querySelector("#deleteNoteModal"));
+                        instance.open();
                     });
                 })
             },
             validateText(text){
                 text=text.replace(/\r\n/g, '<br />').replace(/[\r\n]/g, '<br />');
                 return text;
+            },
+            validateTitle(title){
+                title=title.trim();
+                if(title.length>=300)return false;
+                for(var i=0;i<this.$root.$data.bannedSigns.length;i++)
+                    if(title.includes(this.$root.$data.bannedSigns[i]))return false;
+                return title;
+            },
+            backToNotepads(){
+                this.$root.$data.type="noteList";
             }
         }
     }

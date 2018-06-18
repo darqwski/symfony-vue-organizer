@@ -46,5 +46,6 @@ textarea{
     width: 100%;
     background-color: white;
 overflow:auto;
+    padding:8px;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
     <ul class="collection with-header z-depth-3">
-        <li :class="'collection-header '+this.$root.$data.notepadSecondColor"><h4>Last edited notes</h4></li>
+        <li :class="ulClass">
+            <h4>Last edited notes</h4></li>
         <MenuLastNotesItem
                 v-for="note in notes"
                 v-bind:key="note.id"
@@ -20,6 +21,9 @@
         },
         components: {MenuLastNotesItem},
         computed:{
+            ulClass:function () {
+            return 'collection-header '+this.$root.$data.notepadSecondColor;
+            },
             getNotes:function () {
                 let self = this;
                 fetch('http://localhost:8080/data/notes/get?limit=0&number=3')
