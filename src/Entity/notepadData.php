@@ -51,9 +51,7 @@ class notepadData extends DataFormat {
         $data=PDOController::getCommand($command);
         $tableID=$data[0]['notepad'];
         $tableName=PDOController::getCommand("SELECT `Name` FROM `neezer_notepads` WHERE `ID`=$tableID");
-
         $data[0]['notepad']=$tableName[0]['Name'];
-
 
        return PDOController::convJSON($data);
 
@@ -73,8 +71,8 @@ class notepadData extends DataFormat {
     }
     public static function addRequest(){
 
-        $title=$_POST['title'];
-        $text=$_POST['text'];
+        $title=($_POST['title']);
+        $text=($_POST['text']);
         $notepad=$_POST['notepad'];
         $words=explode(" ",$_POST['text']);
         $firstLine='';
@@ -93,8 +91,8 @@ class notepadData extends DataFormat {
     }
     public static function updateRequest(){
 
-        $title=$_POST['title'];
-        $text=$_POST['text'];
+        $title=($_POST['title']);
+        $text=($_POST['text']);
         $ID=$_POST['ID'];
         $notepad=$_POST['notepad'];
         $words=explode(" ",$_POST['text']);
