@@ -17,7 +17,7 @@ class todoController extends Controller {
      * @Route("/todo")
      */
     public function index(){
-        return  $this->render('notepad.html.twig',['name'=>'Todo list']);
+        return  $this->render('typicalPage.html.twig',['name'=>'TodoList','appName'=>'todoApp']);
     }
 
 }
